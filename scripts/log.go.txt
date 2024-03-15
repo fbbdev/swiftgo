@@ -1,0 +1,22 @@
+// Copyright (c) 2024 Fabio Massaioli
+// Use of this source code is governed by the MIT license
+// that can be found in the LICENSE file.
+
+	if lgf, err := os.OpenFile("/Users/fabio/Development/projects/nails/swiftgo/scripts/cc.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644); err != nil {
+		fmt.Fprintln(os.Stderr, "swiftgocc: could not open log file: ", err)
+	} else {
+		fmt.Fprintf(lgf, "swiftgocc: %d: PWD=%#v\n", os.Getpid(), os.Getenv("PWD"))
+		if wd, err := os.Getwd(); err == nil {
+			fmt.Fprintf(lgf, "swiftgocc: %d: working directory: %#v\n", os.Getpid(), wd)
+		} else {
+			fmt.Fprintf(lgf, "swiftgocc: %d: could not get working directory: %v\n", os.Getpid(), err)
+		}
+
+		fmt.Fprintf(lgf, "swiftgocc: %d: args: %#v\n", os.Getpid(), os.Args)
+		fmt.Fprintf(lgf, "swiftgocc: %d: target: %#v (%#v)\n", os.Getpid(), targetOS, haveTargetOS)
+		fmt.Fprintf(lgf, "swiftgocc: %d: pkg: %#v (%#v)\n", os.Getpid(), pkg, havePkg)
+		fmt.Fprintf(lgf, "swiftgocc: %d: buildDir: %#v (%#v)\n", os.Getpid(), buildDir, haveBuildDir)
+		fmt.Fprintf(lgf, "swiftgocc: %d: compiler: %#v (%#v)\n", os.Getpid(), compiler, haveCompiler)
+
+		lgf.Close()
+	}
